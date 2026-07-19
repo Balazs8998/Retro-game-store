@@ -1,6 +1,7 @@
 package com.retrostore.backend.service;
 
 import com.retrostore.backend.domain.entity.Game;
+import com.retrostore.backend.dto.response.GameDetailsResponse;
 import com.retrostore.backend.dto.response.GameItemResponse;
 import com.retrostore.backend.repository.GameRepository;
 import jakarta.persistence.EntityNotFoundException;
@@ -26,10 +27,10 @@ public class GameService {
 
     }
 
-    public GameItemResponse getGames(Long id) {
+    public GameDetailsResponse getGames(Long id) {
         Game game = this.gameRepository.findById(id).orElseThrow(()
                 -> new EntityNotFoundException("Game with this id: " + id + "not found"));
 
-        return GameItemResponse.mapToGameDto(game);
+        return GameDetailsResponse.mapToGameDetailsDto(game);
     }
 }

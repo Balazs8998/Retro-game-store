@@ -1,5 +1,6 @@
 package com.retrostore.backend.controller;
 
+import com.retrostore.backend.dto.response.GameDetailsResponse;
 import com.retrostore.backend.dto.response.GameItemResponse;
 import com.retrostore.backend.service.GameService;
 import org.springframework.http.ResponseEntity;
@@ -26,7 +27,7 @@ public class GameController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<GameItemResponse> getGameDetails(@PathVariable Long id){
+    public ResponseEntity<GameDetailsResponse> getGameDetails(@PathVariable Long id){
         return ResponseEntity.ok(this.gameService.getGames(id));
     }
 }
