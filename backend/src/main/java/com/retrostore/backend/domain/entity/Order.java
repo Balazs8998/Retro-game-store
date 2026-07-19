@@ -27,12 +27,15 @@ public class Order {
     @Column(name = "created_at", nullable = false)
     private LocalDateTime createdAt;
 
-    @Column(name = "total_price", nullable = false)
-    private BigDecimal totalPrice;
-
     @Column(name = "status", nullable = false)
     @Enumerated(EnumType.STRING)
     private OrderStatus status;
+
+    @Column(name = "updated_at")
+    private LocalDateTime updatedAt;
+
+    @Column(name = "total_price", nullable = false)
+    private BigDecimal totalPrice;
 
     @OneToMany(mappedBy = "order",
             cascade = CascadeType.ALL,

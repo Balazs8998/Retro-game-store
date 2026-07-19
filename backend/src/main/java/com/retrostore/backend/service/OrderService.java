@@ -30,6 +30,37 @@ public class OrderService {
         this.gameRepository = gameRepository;
     }
 
+    public void cancelOrder(Long orderId) {
+        Order order = findOrder(orderId);
+
+        if (order.getStatus() != OrderStatus.CREATED) {
+            throw new IllegalStateException("Only created orders can be cancelled");
+        }
+        order.setStatus(OrderStatus.CANCELLED);
+        order.setUpdatedAt(LocalDateTime.now());
+
+        List<OrderItem> items = order.getItems();
+        for (OrderItem item : items) {
+            restoreStock(item);
+        }
+    }
+
+
+    private Order findOrder(Long orderId) {
+        return orderRepository.findById(orderId).orElseThrow(() ->
+                new EntityNotFoundException("Order with this id: " + orderId + " not found"));
+    }
+
+    private void restoreStock(OrderItem item) {
+        Game game = item.getGame();
+        int quantity = item.getQuantity();
+        int stockQuantity = game.getStockQuantity();
+
+        game.setStockQuantity(stockQuantity + quantity);
+        gameRepository.save(game);
+    }
+
+
     public void purchase(PurchaseRequest request) {
 
         Order newOrder = createNewOrder();
