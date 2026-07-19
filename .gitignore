@@ -1,0 +1,72 @@
+# =========================
+# IntelliJ IDEA
+# =========================
+.idea/
+*.iml
+*.ipr
+*.iws
+out/
+
+# =========================
+# Visual Studio Code
+# =========================
+.vscode/
+frontend/.vscode/
+
+# =========================
+# Java / Maven / Spring
+# =========================
+backend/target/
+*.class
+*.jar
+*.war
+*.ear
+
+# Maven wrapper JAR maradjon Gitben
+!backend/.mvn/wrapper/maven-wrapper.jar
+backend/target/
+
+# Spring logs
+*.log
+logs/
+
+# =========================
+# Angular / Node
+# =========================
+frontend/node_modules/
+frontend/dist/
+frontend/.angular/
+frontend/.cache/
+frontend/coverage/
+
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# =========================
+# Environment / secrets
+# =========================
+.env
+.env.*
+!.env.example
+
+frontend/src/environments/environment.local.ts
+backend/src/main/resources/application-local.yml
+backend/src/main/resources/application-local.yaml
+backend/src/main/resources/application-local.properties
+
+# =========================
+# Operating systems
+# =========================
+.DS_Store
+Thumbs.db
+
+# =========================
+# Temporary files
+# =========================
+*.tmp
+*.temp
+*.swp
+*~
+
