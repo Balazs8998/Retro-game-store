@@ -1,0 +1,190 @@
+<main class="game-list-page">
+  <section class="hero">
+    <div class="hero-content">
+      <span class="hero-eyebrow">RETRO GAME ARCHIVE</span>
+
+      <h1>Choose your next adventure</h1>
+
+      <p>
+        Classic shooters, legendary strategy games and unforgettable
+        adventures from the golden age of gaming.
+      </p>
+
+      <div class="hero-stats">
+        <div class="stat-box">
+          <strong>12+</strong>
+          <span>Classic games</span>
+        </div>
+
+        <div class="stat-box">
+          <strong>6</strong>
+          <span>Retro genres</span>
+        </div>
+
+        <div class="stat-box">
+          <strong>100%</strong>
+          <span>Old-school</span>
+        </div>
+      </div>
+    </div>
+
+
+
+    <div class="hero-console">
+      <div class="console-screen">
+
+        @if (consoleStartButton()) {
+          <canvas class="snake-canvas"></canvas>
+        } @else {
+          <span class="screen-line">SYSTEM READY</span>
+          <span class="screen-line blinking">Press Start to play Snake</span>
+        }
+
+      </div>
+
+      <div class="console-controls">
+        <div class="d-pad">
+          <span class="d-pad-up"></span>
+          <span class="d-pad-left"></span>
+          <span class="d-pad-center"></span>
+          <span class="d-pad-right"></span>
+          <span class="d-pad-down"></span>
+        </div>
+
+        <div class="console-buttons">
+          <span class="button button-a"
+          (click)="setConsoleStartButton()"
+          >Start</span>
+          <span class="button button-b">Reset</span>
+          <!--          snake game feat-->
+
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <section class="catalog-section">
+    <div class="section-header">
+      <div>
+        <span class="section-label">GAME LIBRARY</span>
+        <h2>Available games</h2>
+      </div>
+
+      <div class="view-switcher">
+        <button
+          [class.active]="veiwMode() === 'grid'"
+          class="view-button"
+          type="button"
+          aria-label="grid-view"
+          title="grid-view"
+          (click)="setGridVeiw()"
+        >
+          ▦
+        </button>
+
+        <button
+          [class.active]="veiwMode() === 'list'"
+          class="view-button"
+          type="button"
+          aria-label="list-view"
+          title="list-view"
+          (click)="setListVeiw()"
+        >
+          ☰
+        </button>
+      </div>
+
+      <div class="catalog-tools">
+        <label class="search-box">
+          <span class="search-icon">⌕</span>
+          <input type="text" placeholder="Search games...">
+        </label>
+
+        <select class="genre-select">
+          <option>All genres</option>
+          <option>Action</option>
+          <option>RPG</option>
+          <option>Strategy</option>
+          <option>Racing</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="game-grid">
+      @if (veiwMode() === 'grid') {
+        @for (game of games(); track game.id) {
+          <article class="game-card">
+            <div class="game-image-wrapper">
+              <img
+                class="game-image"
+                [src]="game.imgUrl"
+                [alt]="game.title"
+                [routerLink]="['/games', game.id]"
+              >
+            </div>
+
+            <div>
+              <span class="stock-badge">{{ game.stockQuantity }} 📦 </span>
+
+            </div>
+
+            <div class="game-card-content">
+              <div class="game-meta">
+                <span class="genre-tag">Shooter</span>
+                <span class="platform">PC</span>
+              </div>
+
+              <h3>{{ game.title }}</h3>
+
+
+              <div class="game-card-footer">
+                <div class="price-box">
+                  <span class="price-label">Price</span>
+                  <strong>{{ game.price }} €</strong>
+                </div>
+
+
+                <a class="details-button"
+                   [routerLink]="['/games',game.id]">
+                  Details
+                  <span>→</span>
+                </a>
+              </div>
+            </div>
+          </article>
+        }
+      } @else if (veiwMode() === 'list') {
+        <table>
+          <thead>
+          <tr>
+            <th>Title</th>
+            <th>Genre</th>
+            <th>Stock</th>
+            <th>Price</th>
+            <th></th>
+          </tr>
+          </thead>
+          <tbody>
+            @for (game of games(); track game.id) {
+              <tr>
+                <td>{{ game.title }}</td>
+                <td>{{ game.genre }}</td>
+                <td>{{ game.stockQuantity }}</td>
+                <td>{{ game.price }}</td>
+                <td>
+                  <a class="details-button"
+                     [routerLink]="['/games',game.id]">
+                    Details
+                    <span>→</span>
+                  </a>
+                </td>
+              </tr>
+            }
+          </tbody>
+        </table>
+      }
+
+    </div>
+  </section>
+</main>

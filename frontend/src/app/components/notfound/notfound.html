@@ -1,0 +1,88 @@
+<main
+  #scene
+  class="error-page"
+  [class.glitch-active]="isGlitching"
+  (pointermove)="handlePointerMove($event)"
+  (pointerleave)="resetPointer()"
+>
+  <div class="background-grid" aria-hidden="true"></div>
+  <div class="background-noise" aria-hidden="true"></div>
+  <div class="scanline" aria-hidden="true"></div>
+
+  <div class="orb orb-left" aria-hidden="true"></div>
+  <div class="orb orb-right" aria-hidden="true"></div>
+
+  <section class="error-panel">
+    <div class="status-row">
+      <span class="status-indicator"></span>
+      <span>SYSTEM ERROR // LOST SECTOR</span>
+    </div>
+
+    <div class="error-code-wrapper">
+      <p class="error-label">CARTRIDGE READ FAILURE</p>
+
+      <h1
+        class="error-code"
+        data-text="404"
+        (mouseenter)="activateGlitch()"
+      >
+        404
+      </h1>
+
+      <div class="code-shadow" aria-hidden="true">404</div>
+    </div>
+
+    <div class="message-block">
+      <h2>GAME OVER, TRAVELLER</h2>
+
+      <p>
+        The level you requested was removed, corrupted, or never existed in
+        this timeline.
+      </p>
+    </div>
+
+    <div class="terminal">
+      <div class="terminal-header">
+        <span class="terminal-light"></span>
+        <span>RETROSTORE_OS</span>
+        <span class="terminal-version">v1.0.4</span>
+      </div>
+
+      <div class="terminal-body">
+        <p><span class="prompt">&gt;</span> searching requested sector...</p>
+        <p><span class="prompt">&gt;</span> route mapping failed</p>
+        <p><span class="prompt">&gt;</span> fallback protocol available</p>
+
+        <p class="terminal-active">
+          <span class="prompt">&gt;</span>
+          return to game library<span class="cursor">_</span>
+        </p>
+      </div>
+    </div>
+
+    <div class="action-row">
+      <a class="primary-button" routerLink="/games">
+        <span class="button-icon">◀</span>
+        RETURN TO GAMES
+      </a>
+
+      <button
+        type="button"
+        class="secondary-button"
+        (click)="activateGlitch()"
+      >
+        REBOOT SIGNAL
+      </button>
+    </div>
+
+    <div class="system-info">
+      <span>ERROR_CODE: ROUTE_NOT_FOUND</span>
+      <span>YEAR: {{ currentYear }}</span>
+      <span>STATUS: RECOVERABLE</span>
+    </div>
+  </section>
+
+  <div class="floating-pixel pixel-one" aria-hidden="true"></div>
+  <div class="floating-pixel pixel-two" aria-hidden="true"></div>
+  <div class="floating-pixel pixel-three" aria-hidden="true"></div>
+</main>

@@ -1,4 +1,4 @@
-export interface GamesModel {
+export interface GameModel {
   id: number,
   title: string,
   price: number,
