@@ -51,5 +51,12 @@ public class Game {
     @Column(name = "rating", nullable = false)
     private RatingType rating;
 
+    @Column(name = "tag_line", columnDefinition = "TEXT", nullable = false)
+    private String tagLine;
 
+    @Column(name = "fast_paced_combat", columnDefinition = "TEXT", nullable = false)
+    private String fastPacedCombat;
+
+    @Column(name = "legendary_level", columnDefinition = "TEXT", nullable = false)
+    private String legendaryLevel;
 }

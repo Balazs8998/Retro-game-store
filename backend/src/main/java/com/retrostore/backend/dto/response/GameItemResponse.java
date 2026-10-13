@@ -12,6 +12,7 @@ public record GameItemResponse(
         BigDecimal price,
         Integer stockQuantity,
         String imgUrl,
+        String rating,
         List<String> genre
 
 
@@ -25,6 +26,7 @@ public record GameItemResponse(
         game.getPrice(),
         game.getStockQuantity(),
         game.getImgUrl(),
+        game.getRating().toString(),
         game.getGenre()
                 .stream()
                 .map(GenreType::getDisplayName)

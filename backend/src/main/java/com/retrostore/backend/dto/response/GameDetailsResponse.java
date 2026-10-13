@@ -13,8 +13,12 @@ public record GameDetailsResponse(
         Integer stockQuantity,
         String description,
         String imgUrl,
-        Integer releaseYer,
-        List<String> genre
+        Integer releaseYear,
+        String rating,
+        List<String> genre,
+        String tagLine,
+        String fastPacedCombat,
+        String legendaryLevel
 
 ) {
 
@@ -27,9 +31,13 @@ public record GameDetailsResponse(
                 game.getDescription(),
                 game.getImgUrl(),
                 game.getReleaseYear(),
+                game.getRating().toString(),
                 game.getGenre().stream()
                         .map(GenreType::getDisplayName)
-                        .toList()
+                        .toList(),
+                game.getTagLine(),
+                game.getFastPacedCombat(),
+                game.getLegendaryLevel()
         );
     }
 
