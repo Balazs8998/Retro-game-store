@@ -5,18 +5,19 @@
   </a>
 
   <section class="details-card">
+    @if (game(); as game) {
     <div class="cover-column">
       <div class="cover-wrapper">
         <img
           class="game-cover"
-          src="https://placehold.co/700x950/17152b/9c7cff?text=GAME+COVER"
-          alt="Game cover"
+          [src]="game.imgUrl"
+          [alt]="game.title"
         >
 
         <div class="cover-overlay"></div>
 
-        <span class="release-year">1993</span>
-        <span class="availability">AVAILABLE</span>
+        <span class="release-year">{{game.releaseYear}}</span>
+        <span class="availability">{{available()}}</span>
       </div>
 
       <div class="platform-panel">
@@ -39,35 +40,29 @@
 
     <div class="details-content">
       <div class="details-topline">
-        <span class="category-label">CLASSIC SHOOTER</span>
-        <span class="product-code">ID: RG-001</span>
+        <span class="category-label">{{game.genre[1]}}</span>
+        <span class="product-code">ID: {{game.id}}</span>
       </div>
 
-      <h1>Doom</h1>
+      <h1>{{game.title}}</h1>
 
       <p class="tagline">
-        The game that changed first-person shooters forever.
+        {{game.tagLine}}
       </p>
 
       <div class="genre-list">
-        <span>Action</span>
-        <span>Shooter</span>
-        <span>Classic</span>
+        @for (genre of game.genre; track genre){
+          <span>{{genre}}</span>}
+
       </div>
 
       <div class="description-block">
         <h2>About the game</h2>
 
         <p>
-          You are a lone space marine trapped on a research facility overrun
-          by demonic forces. Fight your way through dark corridors, hidden
-          rooms and hostile environments.
+          {{game.description}}
         </p>
 
-        <p>
-          Fast combat, iconic weapons and unforgettable level design made this
-          title one of the most important games in gaming history.
-        </p>
       </div>
 
       <div class="feature-grid">
@@ -76,7 +71,7 @@
 
           <div>
             <strong>Fast-paced combat</strong>
-            <p>Classic run-and-gun gameplay.</p>
+            <p>{{game.fastPacedCombat}}</p>
           </div>
         </div>
 
@@ -85,7 +80,7 @@
 
           <div>
             <strong>Legendary levels</strong>
-            <p>Explore mazes, secrets and hidden rooms.</p>
+            <p>{{game.legendaryLevel}}</p>
           </div>
         </div>
 
@@ -111,7 +106,7 @@
       <div class="purchase-panel">
         <div class="price-area">
           <span class="price-caption">Current price</span>
-          <strong>19.99 €</strong>
+          <strong>{{game.price}} €</strong>
           <span class="tax-info">VAT included</span>
         </div>
 
@@ -120,21 +115,35 @@
 
           <div>
             <strong>In stock</strong>
-            <span>8 copies available</span>
+            <span>{{game.stockQuantity}}</span>
           </div>
         </div>
 
         <div class="quantity-control">
-          <button type="button">−</button>
-          <span>1</span>
-          <button type="button">+</button>
+          <button
+            type="button"
+            (click)="decreasePurchaseQuantity()"
+          >−</button>
+
+          <span>{{purchaseQuantity()}}</span>
+
+          <button
+            type="button"
+            (click)="increasePurchaseQuantity()"
+          >+</button>
         </div>
 
-        <button class="cart-button" type="button">
+        <button
+          class="cart-button"
+          type="button"
+          (click)="addToCart(game.id)"
+        >
           <span class="cart-icon">▣</span>
           Add to cart
         </button>
       </div>
     </div>
+    }
   </section>
+
 </main>

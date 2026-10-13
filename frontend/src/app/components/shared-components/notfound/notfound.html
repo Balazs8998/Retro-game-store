@@ -1,7 +1,7 @@
 <main
   #scene
   class="error-page"
-  [class.glitch-active]="isGlitching"
+  [class.glitch-active]="isGlitching()"
   (pointermove)="handlePointerMove($event)"
   (pointerleave)="resetPointer()"
 >

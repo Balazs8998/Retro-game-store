@@ -5,7 +5,6 @@ import {
   OnDestroy,
   OnInit,
   ViewChild,
-  inject,
   signal,
 } from '@angular/core';
 import {RouterLink} from '@angular/router';
@@ -21,7 +20,6 @@ export class NotFound implements OnInit, OnDestroy {
   @ViewChild('scene', { static: true })
    scene!: ElementRef<HTMLElement>;
 
-   readonly document = inject(Document);
 
    readonly currentYear = new Date().getFullYear();
    readonly isGlitching = signal(false);

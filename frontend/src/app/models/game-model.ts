@@ -4,6 +4,7 @@ export interface GameModel {
   price: number,
   stockQuantity: number,
   imgUrl: string,
+  rating: string,
   genre: string[]
 
 }
