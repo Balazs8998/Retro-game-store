@@ -1,3 +1,7 @@
+/* =========================================================
+   01 | ALAP - teljes oldal és tartalmi keret
+   ========================================================= */
+
 :host {
   display: block;
   min-height: 100vh;
@@ -17,6 +21,10 @@
   margin: 0 auto;
   padding: 56px 0 90px;
 }
+
+/* =========================================================
+   02 | HERO - felső nyitó blokk, címsor és statisztikák
+   ========================================================= */
 
 .hero {
   position: relative;
@@ -48,8 +56,7 @@
   background-size: 32px 32px;
 }
 
-.hero-content,
-.hero-console {
+.hero-content {
   position: relative;
   z-index: 1;
 }
@@ -118,127 +125,9 @@
   letter-spacing: 0.08em;
 }
 
-.hero-console {
-  width: min(100%, 360px);
-  justify-self: center;
-  padding: 26px;
-  transform: rotate(2deg);
-  border: 5px solid #272b3e;
-  border-radius: 30px;
-  background: linear-gradient(145deg, #4d5268, #25293b);
-  box-shadow:
-    14px 18px 0 rgba(0, 0, 0, 0.24),
-    inset 4px 4px 0 rgba(255, 255, 255, 0.08);
-}
-
-.console-screen {
-  min-height: 170px;
-  padding: 30px 20px;
-  border: 8px solid #171a27;
-  border-radius: 16px;
-  background:
-    repeating-linear-gradient(
-      0deg,
-      rgba(255, 255, 255, 0.02),
-      rgba(255, 255, 255, 0.02) 2px,
-      transparent 2px,
-      transparent 4px
-    ),
-    #090f11;
-  box-shadow:
-    inset 0 0 30px rgba(76, 255, 169, 0.1),
-    0 0 20px rgba(67, 255, 171, 0.06);
-}
-
-.screen-line {
-  display: block;
-  margin-bottom: 18px;
-  color: #67ffa9;
-  font-family: "Courier New", monospace;
-  font-size: 1rem;
-  font-weight: 700;
-  letter-spacing: 0.08em;
-  text-shadow: 0 0 8px rgba(103, 255, 169, 0.6);
-}
-
-.blinking {
-  animation: blink 1.2s steps(1) infinite;
-}
-
-.console-controls {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 30px 10px 5px;
-}
-
-.d-pad {
-  position: relative;
-  width: 92px;
-  height: 92px;
-}
-
-.d-pad span {
-  position: absolute;
-  display: block;
-  width: 30px;
-  height: 30px;
-  background: #171a25;
-  box-shadow: inset 2px 2px rgba(255, 255, 255, 0.05);
-}
-
-.d-pad-up {
-  top: 0;
-  left: 31px;
-}
-
-.d-pad-left {
-  top: 31px;
-  left: 0;
-}
-
-.d-pad-center {
-  top: 31px;
-  left: 31px;
-}
-
-.d-pad-right {
-  top: 31px;
-  right: 0;
-}
-
-.d-pad-down {
-  bottom: 0;
-  left: 31px;
-}
-
-.console-buttons {
-  display: flex;
-  gap: 12px;
-  transform: rotate(-12deg);
-}
-
-.button {
-  display: grid;
-  width: 55px;
-  height: 55px;
-  place-items: center;
-  border-radius: 50%;
-  color: white;
-  font-family: "Courier New", monospace;
-  font-weight: 900;
-  box-shadow:
-    0 6px 0 #141725,
-    inset 2px 2px rgba(255, 255, 255, 0.2);
-}
-
-.button-a {
-  background: #7c5cff;
-}
-
-.button-b {
-  background: #dc4b78;
-}
+/* =========================================================
+   03 | KATALÓGUS - fejléc, keresés és műfajszűrő
+   ========================================================= */
 
 .catalog-section {
   margin-top: 74px;
@@ -303,6 +192,57 @@
   border-radius: 12px;
   background: #101525;
 }
+
+/* =========================================================
+   04 | KATALÓGUS - GRID / LIST nézetváltó
+   ========================================================= */
+
+.view-switcher {
+  display: flex;
+  gap: 6px;
+  padding: 5px;
+}
+
+.view-button {
+  display: grid;
+  width: 40px;
+  height: 38px;
+  place-items: center;
+  padding: 0;
+  border: 1px solid transparent;
+  border-radius: 8px;
+  color: #747d94;
+  background: transparent;
+  font-family: "Courier New", monospace;
+  font-size: 1.15rem;
+  cursor: pointer;
+  transition:
+    color 150ms ease,
+    background 150ms ease,
+    border-color 150ms ease,
+    transform 150ms ease;
+}
+
+.view-button:hover {
+  color: #d8d0ff;
+  border-color: rgba(139, 107, 255, 0.3);
+  background: rgba(119, 82, 255, 0.1);
+}
+
+.view-button:active {
+  transform: translateY(1px);
+}
+
+.view-button.active {
+  color: #ffffff;
+  border-color: #7357e6;
+  background: linear-gradient(135deg, #7557e8, #5230cb);
+  box-shadow: 0 5px 14px rgba(92, 57, 210, 0.25);
+}
+
+/* =========================================================
+   05 | JÁTÉKKÁRTYÁK - GRID és kártyatartalom
+   ========================================================= */
 
 .game-grid {
   display: grid;
@@ -425,8 +365,6 @@
   font-size: 1.3rem;
 }
 
-
-
 .game-card-footer {
   display: flex;
   justify-content: space-between;
@@ -473,107 +411,10 @@
   box-shadow: 0 9px 22px rgba(99, 66, 218, 0.3);
 }
 
-@keyframes blink {
-  0%,
-  48% {
-    opacity: 1;
-  }
+/* =========================================================
+   06 | TÁBLÁZAT - LIST nézet
+   ========================================================= */
 
-  49%,
-  100% {
-    opacity: 0;
-  }
-}
-
-@media (max-width: 1050px) {
-  .hero {
-    grid-template-columns: 1fr;
-  }
-
-  .hero-console {
-    display: none;
-  }
-
-  .game-grid {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-  }
-
-  .section-header {
-    align-items: stretch;
-    flex-direction: column;
-  }
-}
-
-@media (max-width: 700px) {
-  .game-list-page {
-    width: min(100% - 24px, 1400px);
-    padding-top: 24px;
-  }
-
-  .hero {
-    padding: 34px 24px;
-  }
-
-  .hero h1 {
-    font-size: 2.8rem;
-  }
-
-  .catalog-tools {
-    flex-direction: column;
-  }
-
-  .search-box,
-  .genre-select {
-    width: 100%;
-    min-width: 0;
-  }
-
-  .game-grid {
-    grid-template-columns: 1fr;
-  }
-}
-.view-switcher {
-  display: flex;
-  gap: 6px;
-  padding: 5px;
-}
-
-.view-button {
-  display: grid;
-  width: 40px;
-  height: 38px;
-  place-items: center;
-  padding: 0;
-  border: 1px solid transparent;
-  border-radius: 8px;
-  color: #747d94;
-  background: transparent;
-  font-family: "Courier New", monospace;
-  font-size: 1.15rem;
-  cursor: pointer;
-  transition:
-    color 150ms ease,
-    background 150ms ease,
-    border-color 150ms ease,
-    transform 150ms ease;
-}
-
-.view-button:hover {
-  color: #d8d0ff;
-  border-color: rgba(139, 107, 255, 0.3);
-  background: rgba(119, 82, 255, 0.1);
-}
-
-.view-button:active {
-  transform: translateY(1px);
-}
-
-.view-button.active {
-  color: #ffffff;
-  border-color: #7357e6;
-  background: linear-gradient(135deg, #7557e8, #5230cb);
-  box-shadow: 0 5px 14px rgba(92, 57, 210, 0.25);
-}
 .table-wrapper {
   width: 100%;
   overflow-x: auto;
@@ -689,4 +530,52 @@ table .details-button {
 table .details-button:hover {
   transform: translateY(-2px);
   box-shadow: 0 8px 18px rgba(99, 66, 218, 0.3);
+}
+
+/* =========================================================
+   07 | RESZPONZÍV - kisebb képernyők
+   ========================================================= */
+
+@media (max-width: 1050px) {
+  .hero {
+    grid-template-columns: 1fr;
+  }
+
+  .game-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .section-header {
+    align-items: stretch;
+    flex-direction: column;
+  }
+}
+
+@media (max-width: 700px) {
+  .game-list-page {
+    width: min(100% - 24px, 1400px);
+    padding-top: 24px;
+  }
+
+  .hero {
+    padding: 34px 24px;
+  }
+
+  .hero h1 {
+    font-size: 2.8rem;
+  }
+
+  .catalog-tools {
+    flex-direction: column;
+  }
+
+  .search-box,
+  .genre-select {
+    width: 100%;
+    min-width: 0;
+  }
+
+  .game-grid {
+    grid-template-columns: 1fr;
+  }
 }

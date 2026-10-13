@@ -1,0 +1,110 @@
+
+<div class="hero-console"
+     tabindex="0"
+     (keydown)="onKeyDown($event)"
+     (keyup)="onKeyUp($event)">
+  <div class="console-screen">
+
+    @if (consoleStartButton()) {
+      <app-snake-game></app-snake-game>
+
+    } @else {
+      <span class="screen-line">SYSTEM READY</span>
+      <span class="screen-line blinking">Press Menu</span>
+      <span class="screen-line blinking">And choice a game</span>
+
+    }
+
+  </div>
+
+  <div class="console-controls">
+    <div class="d-pad">
+          <span class="d-pad-up"
+                [class.pressed]="gameInput.isPressed('up')"
+                (pointerdown)="gameInput.press('up')"
+                (pointerup)="gameInput.release('up')"
+                (pointerleave)="gameInput.release('up')"
+                (pointercancel)="gameInput.release('up')"
+          >↑</span>
+
+      <span class="d-pad-left"
+            [class.pressed]="gameInput.isPressed('left')"
+            (pointerdown)="gameInput.press('left')"
+            (pointerup)="gameInput.release('left')"
+            (pointerleave)="gameInput.release('left')"
+            (pointercancel)="gameInput.release('left')"
+      >←</span>
+      <span class="d-pad-center"
+            [class.pressed]="gameInput.isPressed('center')"
+            (pointerdown)="gameInput.press('center')"
+            (pointerup)="gameInput.release('center')"
+            (pointerleave)="gameInput.release('center')"
+            (pointercancel)="gameInput.release('center')"
+      ></span>
+      <span class="d-pad-right"
+            [class.pressed]="gameInput.isPressed('right')"
+            (pointerdown)="gameInput.press('right')"
+            (pointerup)="gameInput.release('right')"
+            (pointerleave)="gameInput.release('right')"
+            (pointercancel)="gameInput.release('right')"
+      >→</span>
+      <span class="d-pad-down"
+            [class.pressed]="gameInput.isPressed('down')"
+            (pointerdown)="gameInput.press('down')"
+            (pointerup)="gameInput.release('down')"
+            (pointerleave)="gameInput.release('down')"
+            (pointercancel)="gameInput.release('down')"
+      >↓</span>
+    </div>
+    <div class="menu-buttons">
+      <div class="menu-control">
+        <button class="menu-button" type="button"
+                (click)="setConsoleButtonSquare()"
+        ></button>
+        <span>MENU</span>
+      </div>
+
+      <div class="menu-control">
+        <button class="menu-button" type="button"
+                (click)="setConsoleButtonCircle()"
+        ></button>
+        <span>SELECT</span>
+      </div>
+    </div>
+
+    <div class="action-buttons">
+          <span class="button button-a"
+                [class.pressed]="gameInput.isPressed('square')"
+                (pointerdown)="gameInput.press('square')"
+                (pointerup)="gameInput.release('square')"
+                (pointerleave)="gameInput.release('square')"
+                (pointercancel)="gameInput.release('square')"
+          >□</span>
+      <span class="button button-b"
+            [class.pressed]="gameInput.isPressed('circle')"
+            (pointerdown)="gameInput.press('circle')"
+            (pointerup)="gameInput.release('circle')"
+            (pointerleave)="gameInput.release('circle')"
+            (pointercancel)="gameInput.release('circle')"
+      >○</span>
+
+      <span class="button button-c"
+            [class.pressed]="gameInput.isPressed('triangle')"
+            (pointerdown)="gameInput.press('triangle')"
+            (pointerup)="gameInput.release('triangle')"
+            (pointerleave)="gameInput.release('triangle')"
+            (pointercancel)="gameInput.release('triangle')"
+      >△</span>
+
+      <span class="button button-d"
+            [class.pressed]="gameInput.isPressed('cross')"
+            (pointerdown)="gameInput.press('cross')"
+            (pointerup)="gameInput.release('cross')"
+            (pointerleave)="gameInput.release('cross')"
+            (pointercancel)="gameInput.release('cross')"
+      >×</span>
+      <!--          snake game feat-->
+
+    </div>
+  </div>
+</div>

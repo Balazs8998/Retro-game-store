@@ -28,39 +28,7 @@
       </div>
     </div>
 
-
-
-    <div class="hero-console">
-      <div class="console-screen">
-
-        @if (consoleStartButton()) {
-          <canvas class="snake-canvas"></canvas>
-        } @else {
-          <span class="screen-line">SYSTEM READY</span>
-          <span class="screen-line blinking">Press Start to play Snake</span>
-        }
-
-      </div>
-
-      <div class="console-controls">
-        <div class="d-pad">
-          <span class="d-pad-up"></span>
-          <span class="d-pad-left"></span>
-          <span class="d-pad-center"></span>
-          <span class="d-pad-right"></span>
-          <span class="d-pad-down"></span>
-        </div>
-
-        <div class="console-buttons">
-          <span class="button button-a"
-          (click)="setConsoleStartButton()"
-          >Start</span>
-          <span class="button button-b">Reset</span>
-          <!--          snake game feat-->
-
-        </div>
-      </div>
-    </div>
+    <app-game-console></app-game-console>
   </section>
 
 
@@ -73,7 +41,7 @@
 
       <div class="view-switcher">
         <button
-          [class.active]="veiwMode() === 'grid'"
+          [class.active]="viewMode() === 'grid'"
           class="view-button"
           type="button"
           aria-label="grid-view"
@@ -84,7 +52,7 @@
         </button>
 
         <button
-          [class.active]="veiwMode() === 'list'"
+          [class.active]="viewMode() === 'list'"
           class="view-button"
           type="button"
           aria-label="list-view"
@@ -112,7 +80,7 @@
     </div>
 
     <div class="game-grid">
-      @if (veiwMode() === 'grid') {
+      @if (viewMode() === 'grid') {
         @for (game of games(); track game.id) {
           <article class="game-card">
             <div class="game-image-wrapper">
@@ -154,7 +122,7 @@
             </div>
           </article>
         }
-      } @else if (veiwMode() === 'list') {
+      } @else if (viewMode() === 'list') {
         <table>
           <thead>
           <tr>

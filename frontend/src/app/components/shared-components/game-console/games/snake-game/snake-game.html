@@ -1,0 +1,15 @@
+  <div class="board-hud">
+  <div class="lvl">level: {{this.snakeLevel()}}</div>
+  <div class="score">Score: {{score()}}</div>
+  <div class="speed">ms: {{speed()}}</div>
+</div>
+  <div class="board">
+
+    @for (cellRow of cells; track $index) {
+      @for (cell of cellRow; track $index){
+        <div class="cell" [class.snake]="cell === 1" [class.eat]="cell === 2">
+        </div>
+      }
+    }
+</div>
+
