@@ -8,6 +8,9 @@ export const levelUpScore: readonly number[] = [
   160, 190, 210, 250
 ];
 
+export const boardWidth : number= 20;
+
+export const boardHeight : number= 20;
 
 
 

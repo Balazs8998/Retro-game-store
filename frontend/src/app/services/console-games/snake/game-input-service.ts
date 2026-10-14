@@ -5,7 +5,6 @@ import {GameButton} from '../../../components/shared-components/game-console/typ
 export class GameInputService {
 
   private readonly _pressedButtons = signal<Set<GameButton>>(new Set());
-  pressedButtons = this._pressedButtons.asReadonly();
 
 
   press(button: GameButton): void {

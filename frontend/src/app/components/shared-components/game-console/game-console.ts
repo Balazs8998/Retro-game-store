@@ -1,7 +1,6 @@
 import {Component, inject, signal} from '@angular/core';
 import {SnakeGame} from "./games/snake-game/snake-game";
 import {keymap} from './config/keymap';
-import {GameStore} from '../../../services/game-store/game-store';
 import {GameInputService} from '../../../services/console-games/snake/game-input-service';
 
 @Component({

@@ -59,7 +59,7 @@ export class SnakeMoveService{
     snake.body[0].x = xHeadWithDirection
   }
 
-  allowNextirectionChange():void{
+  allowNextDirectionChange():void{
     this.canChangeDirection.set(true);
   }
 

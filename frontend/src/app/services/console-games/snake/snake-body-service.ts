@@ -1,12 +1,14 @@
 import {Snake} from '../../../components/shared-components/game-console/games/snake-game/model/snake';
-import {HostListener, Injectable} from '@angular/core';
-import {Coordinate} from '../../../components/shared-components/game-console/games/snake-game/model/coordinate';
+import {Injectable} from '@angular/core';
 import {Food} from '../../../components/shared-components/game-console/games/snake-game/model/food';
+import {Coordinate} from '../../../components/shared-components/game-console/games/snake-game/model/coordinate';
 
 @Injectable({
   providedIn: 'root'
 })
 export class SnakeBodyService {
+
+  snake = this.createSnake();
 
   public createSnake(): Snake {
     const snake = new Snake();
@@ -25,18 +27,39 @@ export class SnakeBodyService {
     return snake;
   }
 
-  public createFood(snake:Snake){
-    let randomXCoordinate = Math.floor(Math.random() * 19);
-    let randomYCoordinate = Math.floor(Math.random() * 19);
+  public createFood(freeCoordinate: Coordinate[] ) {
 
-    const eat: Food = new Food();
 
-    eat.body.x = randomXCoordinate;
-    eat.body.y = randomYCoordinate;
+    let randomIndex = Math.floor(Math.random() * freeCoordinate.length);
+    const food : Food = new Food;
+    food.body.x = freeCoordinate[randomIndex].x;
+    food.body.y = freeCoordinate[randomIndex].y;
 
-    return eat;
+    return food;
   }
 
-  private snakeCoordinatList(snake:Snake){}
+  growSnake(snakeBodyX: number, snakeBodyY: number, snake: Snake): void {
+    snake.body.push({x: snakeBodyX, y: snakeBodyY})
+    console.log(snake.body.length)
+  }
+
+
+  checkSelfCollision(snake : Snake): boolean {
+    let hasCollision : boolean = false;
+
+    for (let i = 1; i < snake.body.length; i++) {
+
+      if (snake.body[0].x === snake.body[i].x && snake.body[0].y === snake.body[i].y)
+        hasCollision = true
+        if(hasCollision)
+         return hasCollision;
+    }
+
+    return hasCollision;
+  }
+
+  handleFoodCollision(food: Food, snake: Snake): boolean {
+    return snake.body[0].x === food.body.x && snake.body[0].y === food.body.y;
+  }
 
 }

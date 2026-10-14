@@ -64,8 +64,8 @@
 
   box-sizing: border-box;
 
-  /*border: 1px solid rgba(100, 150, 120, 0.15);*/
-  /*background-color: #0b1511;*/
+  border: 1px solid rgba(100, 150, 120, 0.15);
+  background-color: #0b1511;
 }
 
 /* =========================================

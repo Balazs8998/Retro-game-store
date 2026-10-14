@@ -11,6 +11,9 @@ import {SnakeBodyService} from '../../../../../services/console-games/snake/snak
 import {SnakeMoveService} from '../../../../../services/console-games/snake/snake-move-service';
 import {GameInputService} from '../../../../../services/console-games/snake/game-input-service';
 import {levelSpeeds, levelUpScore} from './config/snake-config';
+import {SnakeBoardService} from '../../../../../services/console-games/snake/snake-board-service';
+import {Food} from './model/food';
+import {Coordinate} from './model/coordinate';
 
 
 @Component({
@@ -23,9 +26,10 @@ import {levelSpeeds, levelUpScore} from './config/snake-config';
 export class SnakeGame {
 
   private cdr = inject(ChangeDetectorRef);
-  protected readonly snakeBodyService = inject(SnakeBodyService);
-  protected readonly snakeMoveService = inject(SnakeMoveService);
-  protected readonly gameInput = inject(GameInputService);
+  private readonly snakeBodyService = inject(SnakeBodyService);
+  private readonly snakeMoveService = inject(SnakeMoveService);
+  private readonly snakeBoardService = inject(SnakeBoardService);
+  private readonly gameInput = inject(GameInputService);
 
 
   private timer?: ReturnType<typeof setInterval>;
@@ -34,10 +38,11 @@ export class SnakeGame {
   protected readonly score = signal <number>(0);
 
 
-  cells: number[][] = [];
+  cells: number[][] = this.snakeBoardService.cells ;
 
-  snake = this.snakeBodyService.createSnake();
-  food = this.snakeBodyService.createFood(this.snake);
+  snake = this.snakeBodyService.snake;
+  freeCells : Coordinate[] = [] ;
+  food: Food = new Food;
 
   snakeLevel = signal(this.snake.level);
 
@@ -50,6 +55,12 @@ export class SnakeGame {
 
 
   constructor() {
+    effect(() => {
+      if (this.isGameRunning()) {
+        this.prepareBoard();
+        this.gameRun();
+      }
+    });
     effect(() => {
       if (this.gameInput.isPressed('up')) {
         this.snakeMoveService.moveUpDirection();
@@ -66,11 +77,6 @@ export class SnakeGame {
       }
     });
 
-    effect(() => {
-      if (this.isGameRunning()) {
-        this.gameRun()
-      }
-    });
   }
 
 
@@ -78,12 +84,18 @@ export class SnakeGame {
     this.gameStop();
   }
 
+
+
+
   private gameStart(): void {
-    this.isGameRunning.set(true)
     this.snake = this.snakeBodyService.createSnake();
-    this.food = this.snakeBodyService.createFood(this.snake);
-    this.snakeLevel.set(this.snake.level)
+
+    this.prepareBoard();
+
+    this.snakeLevel.set(this.snake.level);
     this.score.set(0);
+
+    this.isGameRunning.set(true);
   }
 
   private gameStop(): void {
@@ -104,81 +116,38 @@ export class SnakeGame {
       this.gameStop();
     }
   }
+  private prepareBoard(): void {
+    this.snakeBoardService.createBoard();
+    this.snakeBoardService.placeSnakeOnBoard(this.snake);
+    this.freeCells = this.snakeBoardService.freeCells(this.cells);
+    this.food = this.snakeBodyService.createFood(this.freeCells);
+    this.snakeBoardService.placeFoodOnBoard(this.food);
+  }
 
   private tickGame(): void {
 
-    this.createBoard();
+    this.snakeBoardService.createBoard();
     const snakeBodyX = this.snake.body[this.snake.body.length - 1].x
     const snakeBodyY = this.snake.body[this.snake.body.length - 1].y
-    this.snakeMoveService.move(this.snake)
-    this.checkCollisions(snakeBodyX, snakeBodyY)
-    this.placeSnakeOnBoard();
-    this.placeFoodOnBoard();
-    this.snakeMoveService.allowNextirectionChange();
-    console.log(this.snake.level, "snake level")
-
-    console.log(this.snakeLevel(), "snakelevel signal")
-  }
-
-  private createBoard(): void {
-
-    this.cells = [];
-    const rows: number = 20;
-    const columns: number = 20;
-
-    for (let i = 0; i < rows; i++) {
-      this.cells.push([]);
-
-      for (let g = 0; g < columns; g++) {
-        this.cells[i][g] = 0;
-      }
-
+    this.snakeMoveService.move(this.snake);
+    let isSelfCollier : boolean  = this.snakeBodyService.checkSelfCollision(this.snake);
+    if(isSelfCollier){
+      this.gameStop();
+      return;
     }
-  }
-
-  private placeSnakeOnBoard(): void {
-    for (let i = 0; i < this.snake.body.length; i++) {
-      let x = this.snake.body[i].x;
-      let y = this.snake.body[i].y;
-
-      this.cells[x][y] = 1;
-    }
-  }
-
-  private placeFoodOnBoard(): void {
-
-    const x = this.food.body.x;
-    const y = this.food.body.y;
-    this.cells[x][y] = 2
-  }
-
-  private checkCollisions(snakeBodyX: number, snakeBodyY: number): void {
-    this.checkSelfCollision();
-    this.handleFoodCollision(snakeBodyX, snakeBodyY);
-  }
-
-  private checkSelfCollision(): void {
-    for (let i = 1; i < this.snake.body.length; i++) {
-      if (this.snake.body[0].x === this.snake.body[i].x && this.snake.body[0].y === this.snake.body[i].y) {
-        this.gameStop();
-      }
-    }
-  }
-
-  private handleFoodCollision(snakeBodyX: number, snakeBodyY: number): void {
-    if (this.snake.body[0].x === this.food.body.x && this.snake.body[0].y === this.food.body.y) {
-
-      this.cells[this.snake.body[0].x][this.snake.body[0].y] = 0;
-      this.food = this.snakeBodyService.createFood(this.snake);
-
+    let isFoodEat : boolean = this.snakeBodyService.handleFoodCollision(this.food, this.snake);
+    if (isFoodEat){
+      this.snakeBodyService.growSnake(snakeBodyX,snakeBodyY,this.snake);
       this.addScoreToSnake();
-      this.growSnake(snakeBodyX, snakeBodyY);
-
     }
-  }
+    this.snakeBoardService.placeSnakeOnBoard(this.snake);
 
-  private growSnake(snakeBodyX: number, snakeBodyY: number): void {
-    this.snake.body.push({x: snakeBodyX, y: snakeBodyY})
+    if (isFoodEat){
+      this.freeCells = this.snakeBoardService.freeCells(this.cells);
+      this.food = this.snakeBodyService.createFood(this.freeCells);
+    }
+    this.snakeBoardService.placeFoodOnBoard(this.food);
+    this.snakeMoveService.allowNextDirectionChange();
   }
 
   private addScoreToSnake(): void {
@@ -192,6 +161,6 @@ export class SnakeGame {
       this.snakeLevel.update(level => level + 1)
     }
   }
-
+  
 
 }

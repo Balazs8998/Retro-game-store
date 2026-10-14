@@ -27,11 +27,11 @@ export class GameList {
   }
 
 
-  setGridVeiw() {
+  setGridView() {
     this.viewMode.set('grid')
   }
 
-  setListVeiw() {
+  setListView() {
     this.viewMode.set('list')
   }
 
