@@ -1,15 +1,16 @@
-  <div class="board-hud">
-  <div class="lvl">level: {{this.snakeLevel()}}</div>
-  <div class="score">Score: {{score()}}</div>
-  <div class="speed">ms: {{speed()}}</div>
-</div>
-  <div class="board">
-
-    @for (cellRow of cells; track $index) {
-      @for (cell of cellRow; track $index){
-        <div class="cell" [class.snake]="cell === 1" [class.eat]="cell === 2">
-        </div>
-      }
-    }
-</div>
+@if (snakeSelectedAction() === 'Menu'){
+  <app-snake-menu
+    (exitSnake)="exit()"
+    (selectedAction)="selectedAction($event)"
+  ></app-snake-menu>
+} @else if (snakeSelectedAction() === 'Start Game'){
+  <app-snake-game-play
+  (exitToSnakeMenu)="backToSnakeMenu()"
+  ></app-snake-game-play>
+} @else if (snakeSelectedAction() === 'Settings'){
+  <app-snake-game-settings
+  (backOutput)="backToSnakeMenu()"
+  >
+  </app-snake-game-settings>
+}
 

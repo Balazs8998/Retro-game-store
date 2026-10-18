@@ -1,0 +1,36 @@
+@if (gameScreen() === 'control') {
+  <div class="control-panel">
+    <p>↑ Move {{this.keyBindingService.getKeyCode('up')}}</p>
+    <p>↓ Move {{this.keyBindingService.getKeyCode('down')}}</p>
+    <p>← Move {{this.keyBindingService.getKeyCode('left')}}</p>
+    <p>→ Move {{this.keyBindingService.getKeyCode('right')}}</p>
+    <p>△ Pause {{this.keyBindingService.getKeyCode('triangle')}}</p>
+    <p>□ Resume {{this.keyBindingService.getKeyCode('square')}}</p>
+    <p>○ Exit {{this.keyBindingService.getKeyCode('circle')}}</p>
+
+    <p>Press Enter to continue</p>
+  </div>
+
+} @else if (gameScreen() === 'play') {
+  <div class="board-hud">
+    <div class="lvl">level: {{ this.snakeLevel() }}</div>
+    <div class="score">Score: {{ score() }}</div>
+    <div class="speed">ms: {{ speed() }}</div>
+  </div>
+  <div class="board">
+
+    @for (cellRow of cells; track $index) {
+      @for (cell of cellRow; track $index) {
+        <div class="cell" [class.snake]="cell === 1" [class.eat]="cell === 2">
+        </div>
+      }
+    }
+  </div>
+
+} @else if (gameScreen() === 'game over') {
+  <div class="game-over-panel">
+    <h2>GAME OVER</h2>
+    <p>Level: {{ snakeLevel() }}</p>
+    <p>Score: {{ score() }}</p>
+  </div>
+}
