@@ -1,13 +1,13 @@
 import { Injectable, signal } from '@angular/core';
-import {GameButton} from '../../../components/shared-components/game-console/types/game-button';
+import {ConsoleButton} from '../../../components/shared-components/game-console/types/console-button';
 
 @Injectable({ providedIn: 'root' })
 export class GameInputService {
 
-  private readonly _pressedButtons = signal<Set<GameButton>>(new Set());
+  private readonly _pressedButtons = signal<Set<ConsoleButton>>(new Set());
 
 
-  press(button: GameButton): void {
+  press(button: ConsoleButton): void {
     this._pressedButtons.update(previous => {
       const next = new Set(previous);
       next.add(button);
@@ -16,7 +16,7 @@ export class GameInputService {
 
   }
 
-  release(button: GameButton): void {
+  release(button: ConsoleButton): void {
     this._pressedButtons.update(previous => {
       const next = new Set(previous);
       next.delete(button);
@@ -25,9 +25,7 @@ export class GameInputService {
 
   }
 
-  isPressed(button: GameButton): boolean {
+  isPressed(button: ConsoleButton): boolean {
     return this._pressedButtons().has(button)
   }
-
-
 }

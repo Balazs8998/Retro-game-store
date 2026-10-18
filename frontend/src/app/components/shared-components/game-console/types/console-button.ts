@@ -1,4 +1,4 @@
-export type GameButton =
+export type ConsoleButton =
   | 'up'
   | 'down'
   | 'left'

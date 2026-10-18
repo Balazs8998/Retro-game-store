@@ -1,0 +1,50 @@
+.menu {
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
+}
+.menu__header {
+  display: flex;
+  position: relative;
+  justify-content: center;
+  font-family: system-ui;
+  border: 5px #4cbd4c groove;
+  border-radius: 10px;
+  background-color: rgb(255 135 17 / 0.10);
+}
+
+.menu__header h1 {
+  margin: 20px 10px;
+  font-size: 30px;
+  color: #1ddf21;
+  text-shadow: 3px 3px 5px rgb(255 136 0 / 0.85);
+
+}
+
+.menu__header p{
+  position: absolute;
+  margin: 0 ;
+  color: #91da44;
+  right: 5px;
+  bottom: 5px;
+  font-size: 11px;
+}
+
+.menu__options{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.menu__options p{
+  margin: 0 10px 10px ;
+  color: #76b137;
+  font-family: ui-rounded;
+  font-size: 20px;
+}
+
+.menu__options .is-selected{
+  color: red;
+  border: 2px yellow ridge;
+
+}

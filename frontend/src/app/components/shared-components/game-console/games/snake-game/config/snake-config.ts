@@ -1,11 +1,11 @@
 export const levelSpeeds = [
-  600, 455, 345, 262, 199,
-  151, 115, 87, 66, 50
+  550, 455, 345, 262, 199,
+  151, 115, 87, 70, 55
 ] as const;
 
 export const levelUpScore: readonly number[] = [
-  30, 50, 70, 100, 130,
-  160, 190, 210, 250
+  50, 90, 140, 190, 250,
+  300, 360, 420, 500
 ];
 
 export const boardWidth : number= 20;

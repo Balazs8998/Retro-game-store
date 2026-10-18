@@ -1,0 +1,16 @@
+<div class="menu">
+<div class="menu__header">
+  <h1>GAME MENU</h1>
+  <p>© 2026</p>
+
+</div>
+
+<div class="menu__options">
+@for (menu of menus; track $index) {
+<p [class.is-selected]="game() === menu ">
+  {{menu}}
+</p>
+
+}
+</div>
+</div>

@@ -1,0 +1,14 @@
+<div class="menu"
+>
+<div class="menu__header">
+  <h1>SNAKE MENU</h1>
+</div>
+
+<div class="menu__options">
+  @for (snakeMenu of snakeMenus ; track $index){
+   <p
+     [class.is-selected]="snakeSelectedAction() === snakeMenu"
+   > {{snakeMenu}}</p>
+  }
+</div>
+</div>

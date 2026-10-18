@@ -3,18 +3,29 @@
      tabindex="0"
      (keydown)="onKeyDown($event)"
      (keyup)="onKeyUp($event)">
-  <div class="console-screen">
-
-    @if (consoleStartButton()) {
-      <app-snake-game></app-snake-game>
-
-    } @else {
+  <div
+    class="console-screen"
+    [class.compact]="consoleView() === 'Idle'"
+  >
+    @if (consoleView() === 'Menu') {
+      <app-game-console-menu
+      (exit)="shutDown()"
+      (gameOutput)="runGame($event)"
+      ></app-game-console-menu>
+    } @else if (consoleView() === 'Snake'){
+     <app-snake-game
+       (exitSnake)="exitGame()"
+     ></app-snake-game>
+    } @else if (consoleView() === 'Tetris'){
+      <h1>Under Development</h1>
+    }@else if (consoleView() === 'Pong'){
+      <h1>Under Development</h1>
+    }
+    @else {
       <span class="screen-line">SYSTEM READY</span>
       <span class="screen-line blinking">Press Menu</span>
       <span class="screen-line blinking">And choice a game</span>
-
     }
-
   </div>
 
   <div class="console-controls">
@@ -59,14 +70,14 @@
     <div class="menu-buttons">
       <div class="menu-control">
         <button class="menu-button" type="button"
-                (click)="setConsoleButtonSquare()"
+                (click)="setConsoleButtonMenu()"
         ></button>
         <span>MENU</span>
       </div>
 
       <div class="menu-control">
-        <button class="menu-button" type="button"
-                (click)="setConsoleButtonCircle()"
+        <button class="menu-button" type="button">
+<!--                (click)="setConsoleButtonSquare()"-->
         ></button>
         <span>SELECT</span>
       </div>
@@ -103,8 +114,6 @@
             (pointerleave)="gameInput.release('cross')"
             (pointercancel)="gameInput.release('cross')"
       >×</span>
-      <!--          snake game feat-->
-
     </div>
   </div>
 </div>

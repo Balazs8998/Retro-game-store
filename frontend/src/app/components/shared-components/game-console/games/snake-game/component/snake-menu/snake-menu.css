@@ -1,0 +1,14 @@
+@import url('../../../style/base-menu.css');
+
+
+.menu__options .is-selected{
+  border: none;
+  position: relative;
+}
+
+.menu__options .is-selected::before {
+  content: "🐍";
+  position: absolute;
+  inset-inline-end: 100%;
+  margin-inline-end: 0.2em;
+}

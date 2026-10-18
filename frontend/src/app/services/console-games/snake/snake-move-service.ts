@@ -8,7 +8,7 @@ import {Injectable, signal} from '@angular/core';
 export class SnakeMoveService{
 
 
-  moveDirection = signal<Coordinate>({x:1,y:0})
+  moveDirection = signal<Coordinate>({x:0,y:1})
   canChangeDirection = signal<boolean>(true);
 
 

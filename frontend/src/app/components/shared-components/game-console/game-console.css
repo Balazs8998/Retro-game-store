@@ -25,6 +25,7 @@
    02 | KONZOL - burkolat és kijelző
    ========================================================= */
 
+
 .hero-console {
   width: 100%;
   padding: 26px;
@@ -36,6 +37,11 @@
     14px 18px 0 rgba(0, 0, 0, 0.24),
     inset 4px 4px 0 rgba(255, 255, 255, 0.08);
 }
+
+.console-screen.compact {
+  aspect-ratio: 9 / 6;
+}
+
 
 .console-screen {
   display: flex;
@@ -60,8 +66,8 @@
     inset 0 0 30px rgba(76, 255, 169, 0.1),
     0 0 20px rgba(67, 255, 171, 0.06);
 }
+
 app-snake-game {
-  display: flex;
   flex: 1;
   min-width: 0;
   min-height: 0;

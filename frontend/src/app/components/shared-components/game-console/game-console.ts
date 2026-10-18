@@ -1,36 +1,52 @@
 import {Component, inject, signal} from '@angular/core';
-import {SnakeGame} from "./games/snake-game/snake-game";
-import {keymap} from './config/keymap';
 import {GameInputService} from '../../../services/console-games/snake/game-input-service';
+import {GameConsoleMenu} from './games/menu/game-console-menu/game-console-menu';
+import {ConsoleMenuAction} from './types/console-menu-action';
+import {SnakeGame} from './games/snake-game/snake-game';
+import {KeyBindingService} from '../../../services/console-games/snake/key-binding-service';
+
+type ConsoleViewType = 'Idle' | 'Menu' | ConsoleMenuAction
 
 @Component({
   selector: 'app-game-console',
-    imports: [
-        SnakeGame
-    ],
+  imports: [
+    GameConsoleMenu,
+    SnakeGame
+  ],
   templateUrl: './game-console.html',
   styleUrl: './game-console.css',
 })
 export class GameConsole {
 
   protected readonly gameInput = inject(GameInputService);
+  private readonly keybindingService = inject(KeyBindingService);
+  protected readonly consoleView = signal<ConsoleViewType>('Idle')
 
-  protected readonly consoleStartButton = signal(false)
   private inactivityTimer?: ReturnType<typeof setTimeout>;
 
-  setConsoleButtonSquare() {
-    this.consoleStartButton.set(true);
+  ngOnInit() {
+    this.keybindingService.generateReverseKeyBindingMap();
+  }
+
+  setConsoleButtonMenu(): void {
+    this.consoleView.set('Menu')
     this.resetInactivityTimer();
   }
 
-  setConsoleButtonCircle(): void {
-    this.consoleStartButton.set(false);
-    this.resetInactivityTimer();
+  exitGame(){
+    this.consoleView.set("Menu");
+  }
 
+  shutDown(){
+    this.consoleView.set('Idle')
+  }
+  runGame(game:ConsoleMenuAction){
+    this.consoleView.set(game)
   }
 
   onKeyDown(event: KeyboardEvent): void{
-    const button = keymap[event.key]
+    const keyCode = event.code;
+    const button = this.keybindingService.searchButton(keyCode)
     if (!button) return;
     event.preventDefault();
 
@@ -41,7 +57,8 @@ export class GameConsole {
   }
 
   onKeyUp(event: KeyboardEvent): void{
-    const button = keymap[event.key]
+    const keyCode = event.code;
+    const button = this.keybindingService.searchButton(keyCode)
     if(!button) return;
 
     event.preventDefault();
@@ -50,16 +67,13 @@ export class GameConsole {
   }
 
 
-
-
-
   resetInactivityTimer(): void {
     if (this.inactivityTimer) {
       clearTimeout(this.inactivityTimer);
     }
 
     this.inactivityTimer = setTimeout(() => {
-      this.consoleStartButton.set(false);
+      this.consoleView.set('Idle');
     }, 2 * 60 * 1000);
   }
 
